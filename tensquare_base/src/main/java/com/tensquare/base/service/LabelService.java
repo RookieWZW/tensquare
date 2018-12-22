@@ -55,40 +55,41 @@ public class LabelService {
     }
 
 
-    private Specification<Label> createSpecification(Map searchMap){
+    private Specification<Label> createSpecification(Map searchMap) {
+
         return new Specification<Label>() {
+
             @Override
-            public Predicate toPredicate(Root<Label> root, CriteriaQuery<?>
-                    criteriaQuery, CriteriaBuilder cb) {
-                List<Predicate> predicateList=new ArrayList<>();
-                if(searchMap.get("labelname")!=null &&
-                        !"".equals(searchMap.get("labelname"))){
+            public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+
+                List<Predicate> predicateList = new ArrayList<>();
+                if (searchMap.get("labelname") != null &&
+                        !"".equals(searchMap.get("labelname"))) {
                     predicateList.add(cb.like(
-                            root.get("labelname").as(String.class), "%"+
-                                    (String)searchMap.get("labelname")+"%" ) );
-                    System.out.println(searchMap.get("labelname"));
+                            root.get("labelname").as(String.class), "%" +
+                                    (String) searchMap.get("labelname") + "%"));
                 }
-                if(searchMap.get("state")!=null &&
-                        !"".equals(searchMap.get("state"))){
+                if (searchMap.get("state") != null &&
+                        !"".equals(searchMap.get("state"))) {
                     predicateList.add(cb.equal(
-                            root.get("state").as(String.class), (String)searchMap.get("state") ) );
+                            root.get("state").as(String.class), (String) searchMap.get("state")));
                 }
-                if(searchMap.get("recommend")!=null &&
-                        !"".equals(searchMap.get("recommend"))){
+                if (searchMap.get("recommend") != null &&
+                        !"".equals(searchMap.get("recommend"))) {
                     predicateList.add(cb.equal(
                             root.get("recommend").as(String.class),
-                            (String)searchMap.get("recommend") ) );
+                            (String) searchMap.get("recommend")));
                 }
-                return cb.and( predicateList.toArray( new
-                        Predicate[predicateList.size()]) );
+                return cb.and(predicateList.toArray(new Predicate[predicateList.size()]));
             }
         };
+
+
     }
 
-    public Page<Label> findSearch(Map searchMap,int page,int size){
-        Specification specification= createSpecification(searchMap);
-        Pageable pageRequest=PageRequest.of(page-1,size);
-        return labelDao.findAll( specification ,pageRequest);
-
+    public Page<Label> findSearch(Map searchMap, int page, int size) {
+        Specification specification = createSpecification(searchMap);
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        return labelDao.findAll(specification, pageRequest);
     }
 }

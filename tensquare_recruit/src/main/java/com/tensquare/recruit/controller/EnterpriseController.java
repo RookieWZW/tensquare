@@ -109,4 +109,6 @@ public class EnterpriseController {
 	public Result hotlist(){
 		return new Result(true,StatusCode.OK,"查询成功",enterpriseService.hotlist());
 	}
+
+
 }
