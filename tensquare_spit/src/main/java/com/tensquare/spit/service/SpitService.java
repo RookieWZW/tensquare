@@ -74,7 +74,7 @@ public class SpitService {
     public void updateThumbup(String id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(id));
-        Update update = new Update();
+        Update update =  new Update();
         update.inc("thumbup", 1);
         mongoTemplate.updateFirst(query, update, "spit");
     }

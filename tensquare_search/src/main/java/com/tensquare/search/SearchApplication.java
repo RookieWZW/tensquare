@@ -1,20 +1,22 @@
-package com.tensquare.article;
+package com.tensquare.search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import util.IdWorker;
 
+/**
+ * Created by RookieWangZhiWei on 2018/12/24.
+ */
 @SpringBootApplication
-public class ArticleApplication {
+public class SearchApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ArticleApplication.class, args);
+        SpringApplication.run(SearchApplication.class);
     }
 
     @Bean
-    public IdWorker idWorkker() {
+    public IdWorker idWorker() {
         return new IdWorker(1, 1);
     }
-
 }
