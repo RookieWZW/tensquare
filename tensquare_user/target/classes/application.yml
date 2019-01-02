@@ -15,3 +15,8 @@ spring:
     host: 192.168.200.138
   rabbitmq:
     host: 192.168.200.138
+
+jwt:
+ config:
+    key: itcast
+    ttl: 360000

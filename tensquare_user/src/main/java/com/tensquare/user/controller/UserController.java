@@ -3,6 +3,7 @@ package com.tensquare.user.controller;
 import java.util.List;
 import java.util.Map;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +19,9 @@ import com.tensquare.user.service.UserService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import util.JwtUtil;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 控制器层
@@ -32,6 +36,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private JwtUtil  jwtUtil;
 
     /**
      * 查询全部数据
@@ -110,6 +119,13 @@ public class UserController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
+
+       Claims claims = (Claims) request.getAttribute("admin_claims");
+
+       if (claims == null){
+           return new Result(true,StatusCode.ACCESSERROR,"无权访问");
+       }
+
         userService.deleteById(id);
         return new Result(true, StatusCode.OK, "删除成功");
     }
@@ -126,5 +142,16 @@ public class UserController {
         userService.add(user, code);
 
         return new Result(true, StatusCode.OK, "注册成功");
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public Result login(String mobile, String password) {
+        User user = userService.findByMobileAndPassword(mobile, password);
+
+        if (user != null) {
+            return new Result(true, StatusCode.OK, "登陆成功");
+        } else {
+            return new Result(false, StatusCode.LOGINERROR, "用户名或密码错误");
+        }
     }
 }
