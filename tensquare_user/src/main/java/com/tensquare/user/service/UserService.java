@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import util.IdWorker;
 
 import com.tensquare.user.dao.UserDao;
@@ -225,13 +226,24 @@ public class UserService {
         userDao.save(user);
     }
 
-    public User findByMobileAndPassword(String mobile,String password){
+    public User findByMobileAndPassword(String mobile, String password) {
         User user = userDao.findByMobile(mobile);
 
-        if (user != null && encoder.matches(password,user.getPassword())){
+        if (user != null && encoder.matches(password, user.getPassword())) {
             return user;
-        }else{
+        } else {
             return null;
         }
     }
+
+    @Transactional
+    public void incFanscount(String userid, int x) {
+        userDao.incFanscount(userid, x);
+    }
+
+    @Transactional
+    public void incFollowcount(String userid,int x){
+        userDao.incFollowcount(userid, x);
+    }
+
 }

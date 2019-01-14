@@ -1,5 +1,6 @@
 package com.tensquare.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -145,13 +146,30 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result login(String mobile, String password) {
-        User user = userService.findByMobileAndPassword(mobile, password);
+    public Result login(@RequestBody Map<String,String> loginMap) {
+        User user = userService.findByMobileAndPassword(loginMap.get("mobile"), loginMap.get("password"));
+
 
         if (user != null) {
-            return new Result(true, StatusCode.OK, "登陆成功");
+            String token = jwtUtil.createJWT(user.getId(),user.getNickname(),"user");
+            Map map = new HashMap();
+            map.put("token",token);
+            map.put("name",user.getNickname());
+            map.put("avatar",user.getAvatar());
+            return new Result(true, StatusCode.OK, "登陆成功",map);
         } else {
             return new Result(false, StatusCode.LOGINERROR, "用户名或密码错误");
         }
+    }
+
+    @RequestMapping(value = "/incfans/{userid}/{x}",method = RequestMethod.POST)
+    public void incFanscount(@PathVariable String userid,@PathVariable int x){
+
+        userService.incFanscount(userid, x);
+    }
+
+    @RequestMapping(value = "/incfollow/{userid}/{x}",method = RequestMethod.POST)
+    public void incFollowcount(@PathVariable String userid,@PathVariable  int x){
+        userService.incFollowcount(userid, x);
     }
 }

@@ -12,3 +12,11 @@ spring:
     database: MySQL
     show-sql: true
     generate-ddl: true
+
+
+eureka:
+  client:
+    service-url:
+      dafaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true

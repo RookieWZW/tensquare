@@ -20,3 +20,10 @@ jwt:
  config:
     key: itcast
     ttl: 360000
+
+eureka:
+  client:
+    service-url:
+      dafaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true

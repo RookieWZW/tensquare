@@ -6,3 +6,11 @@ spring:
   data:
     elasticsearch:
       cluster-nodes: 127.0.0.1:9300
+
+
+eureka:
+  client:
+    service-url:
+      dafaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true
