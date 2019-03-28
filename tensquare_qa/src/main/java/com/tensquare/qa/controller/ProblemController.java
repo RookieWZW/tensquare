@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.netflix.discovery.converters.Auto;
-import com.tensquare.qa.client.LabelClient;
+
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -65,7 +65,6 @@ public class ProblemController {
 
     /**
      * 分页+多条件查询
-     *
      * @param searchMap 查询条件封装
      * @param page      页码
      * @param size      页大小
@@ -129,6 +128,7 @@ public class ProblemController {
         return new Result(true, StatusCode.OK, "删除成功");
     }
 
+
     @RequestMapping(value = "/newlist/{labelid}/{page}/{size}", method = RequestMethod.GET)
     public Result findNewListByLabelId(@PathVariable String labelid, @PathVariable int page, @PathVariable int size) {
 
@@ -139,6 +139,7 @@ public class ProblemController {
 
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
+
 
     @RequestMapping(value = "/hotlist/{labelid}/{page}/{size}", method = RequestMethod.GET)
     public Result findHotListByLabelId(@PathVariable String labelid, @PathVariable int page, @PathVariable int size) {
@@ -159,15 +160,7 @@ public class ProblemController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
-    @Autowired
-    private LabelClient labelClient;
 
-    @RequestMapping(value = "/label/{id}")
-    public Result findbyLabelId(@PathVariable("id") String id) {
 
-        Result result = labelClient.findById(id);
-
-        return result;
-    }
 
 }

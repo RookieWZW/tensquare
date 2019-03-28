@@ -91,7 +91,7 @@ public class ArticleService {
         Article article = (Article) redisTemplate.opsForValue().get("article_" + id);
         if (article == null) {
             article = articleDao.findById(id).get();
-            redisTemplate.opsForValue().set("article_" + id, article,10, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set("article_" + id, article,1, TimeUnit.DAYS);
         }
         return article;
 

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import util.IdWorker;
 
 @SpringBootApplication
-@EnableEurekaClient
 public class ArticleApplication {
 
     public static void main(String[] args) {

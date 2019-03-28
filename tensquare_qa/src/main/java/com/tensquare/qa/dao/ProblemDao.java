@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.Query;
  * @author Administrator
  */
 public interface ProblemDao extends JpaRepository<Problem, String>, JpaSpecificationExecutor<Problem> {
+
     @Query("select p from Problem p where id in (select problemid from Pl where labelid=?1 ) order by replytime desc")
     public Page<Problem> findNewListByLabelId(String labelId, org.springframework.data.domain.Pageable pageable);
 

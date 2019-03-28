@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by RookieWangZhiWei on 2018/12/23.
  */
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/spit")
 public class SpitController {
