@@ -8,3 +8,9 @@ spring:
       cluster-nodes: 127.0.0.1:9300
 
 
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://localhost:6868/eureka
+  instance:
+    prefer‐ip‐address: true

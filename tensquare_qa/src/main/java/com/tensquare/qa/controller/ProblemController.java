@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.netflix.discovery.converters.Auto;
 
+import com.tensquare.qa.client.LabelClient;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,9 @@ public class ProblemController {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private LabelClient labelClient;
+
     /**
      * 查询全部数据
      *
@@ -65,6 +69,7 @@ public class ProblemController {
 
     /**
      * 分页+多条件查询
+     *
      * @param searchMap 查询条件封装
      * @param page      页码
      * @param size      页大小
@@ -160,7 +165,10 @@ public class ProblemController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
-
+    @RequestMapping(value = "/label/{labelid}")
+    public Result findLabelById(@PathVariable String labelid) {
+        return labelClient.findById(labelid);
+    }
 
 
 }

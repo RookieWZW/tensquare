@@ -10,7 +10,7 @@ import util.IdWorker;
  * Created by RookieWangZhiWei on 2018/12/24.
  */
 @SpringBootApplication
-
+@EnableEurekaClient
 public class SearchApplication {
 
     public static void main(String[] args) {
