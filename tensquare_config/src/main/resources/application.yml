@@ -5,6 +5,14 @@ cloud:
   config:
     server:
       git:
-        uri: https://gitee.com/chuanzhiliubei/tensquare‐config.git
+        uri: https://github.com/RookieWZW/tensquare-config.git
 server:
   port: 12000
+
+rabbitmq:
+  host: 192.168.184.135
+management: #暴露触发消息总线的地址
+  endpoints:
+    web:
+      exposure:
+        include: bus‐refresh
